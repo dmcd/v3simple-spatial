@@ -15,11 +15,11 @@ def index():
 def dbexample():
     print(os.environ.get('POSTGRESQL_USER'))
     print("After Env")
-    # try:
-    conn = psycopg2.connect(database=os.environ.get('PG_DATABASE'), user=os.environ.get('PG_USER'), host=os.environ.get('PG_SLAVE_RC_SERVICE_HOST'), password=os.environ.get('PG_ROOT_PASSWORD'))
-    # except e:
-    #     print(os.environ.get('PG_USER')	+ "  " + os.environ.get('PG_SLAVE_RC_SERVICE_HOST'))
-        
+    try:
+    	conn = psycopg2.connect(database=os.environ.get('PG_DATABASE'), user=os.environ.get('PG_USER'), host=os.environ.get('PG_SLAVE_RC_SERVICE_HOST'), password=os.environ.get('PG_PASSWORD'))
+    except e:
+		print(os.environ.get('PG_USER')	+ "  " + os.environ.get('PG_SLAVE_RC_SERVICE_HOST'))
+
     cur = conn.cursor()
     cur.execute("""select parkid, name, ST_AsText(the_geom) from parkpoints limit 10""")
 
