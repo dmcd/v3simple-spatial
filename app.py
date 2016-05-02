@@ -8,7 +8,7 @@ import os
 
 @route('/')
 def index():
-    return "<h1> hello OpenShift Ninja without DB</h1>"
+    return "<h1>Dave's OpenShift Ninja without DB</h1>"
 
 # since this is a read only talk to the replicas
 @get('/db')
@@ -19,7 +19,7 @@ def dbexample():
         conn = psycopg2.connect(database=os.environ.get('PG_DATABASE'), user=os.environ.get('PG_USER'), host=os.environ.get('PG_SLAVE_RC_SERVICE_HOST'), password=os.environ.get('PG_ROOT_PASSWORD'))
     except:
         print(os.environ.get('PG_USER')	+ "  " + os.environ.get('PG_SLAVE_RC_SERVICE_HOST'))
-
+        
     cur = conn.cursor()
     cur.execute("""select parkid, name, ST_AsText(the_geom) from parkpoints limit 10""")
 
@@ -30,7 +30,6 @@ def dbexample():
 
     cur.close()
     conn.close()
-
     return  result_string
 
 if __name__ == '__main__':
